@@ -1,0 +1,23 @@
+workflows:
+    ios-app:
+        name: iOS App
+        environment:
+            vars:
+                XCODE_WORKSPACE: "TestApp"
+                XCODE_PROJECT: "TestApp"
+                XCODE_SCHEME: "TestApp"
+            xcode: latest
+            cocoapods: default
+        scripts:
+            # Build
+            - xcodebuild build -project "$XCODE_PROJECT.xcodeproj" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+            # - xcodebuild build -workspace "$XCODE_WORKSPACE.xcworkspace" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+            # Archive
+            # - xcode-project build-ipa --project "$XCODE_PROJECT.xcodeproj" --scheme "XCODE_SCHEME"
+            # - xcode-project build-ipa --workspace "$XCODE_WORKSPACE.xcworkspace" --scheme "XCODE_SCHEME"
+        artifacts:
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+
+
+            
